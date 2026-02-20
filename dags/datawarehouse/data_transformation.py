@@ -2,7 +2,7 @@
 from datetime import timedelta, datetime
 def parse_duration(duration_str):
     
-    duration_str = duration_str.replace('p','').replace('T','')
+    duration_str = duration_str.replace('P','').replace('T','')
     
     components = ['D', 'H', 'M', 'S']
     values = {'D':0, 'H':0, 'M':0, 'S':0}

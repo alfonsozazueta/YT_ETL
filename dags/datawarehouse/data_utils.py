@@ -4,7 +4,7 @@ from psycopg2.extras import RealDictCursor
 table = "yt_api"
 
 def get_conn_cursor():
-    hook = PostgresHook(postgress_conn_id= "postgres_db_yt_elt", database="elt_db")
+    hook = PostgresHook(postgres_conn_id= "postgres_db_yt_elt", database="elt_db")
     conn = hook.get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     return conn, cur
@@ -20,7 +20,7 @@ def create_schema(schema):
     
     cur.execute(schema_sql)
     
-    conn.connect()
+    conn.commit()
     
     close_conn_cursor(conn, cur)
     
@@ -31,7 +31,7 @@ def create_table(schema):
             CREATE TABLE IF NOT EXISTS {schema}.{table} (
                 "Video_ID" VARCHAR(11) PRIMARY KEY NOT NULL,
                 "Video_Title" TEXT NOT NULL,
-                "Upload_Date TIMESTAMP NOT NULL,
+                "Upload_Date" TIMESTAMP NOT NULL,
                 "Duration" VARCHAR(20) NOT NULL,
                 "Video_Views" INT,
                 "Likes_Count" INT,
@@ -44,7 +44,7 @@ def create_table(schema):
             CREATE TABLE IF NOT EXISTS {schema}.{table} (
                 "Video_ID" VARCHAR(11) PRIMARY KEY NOT NULL,
                 "Video_Title" TEXT NOT NULL,
-                "Upload_Date TIMESTAMP NOT NULL,
+                "Upload_Date" TIMESTAMP NOT NULL,
                 "Duration" VARCHAR(10) NOT NULL,
                 "Video_Views" INT,
                 "Likes_Count" INT,
@@ -54,7 +54,7 @@ def create_table(schema):
     
     cur.execute(table_sql)
     
-    conn.connect()
+    conn.commit()
     
     close_conn_cursor(conn, cur)
         
